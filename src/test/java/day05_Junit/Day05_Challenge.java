@@ -7,48 +7,82 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 
 import java.time.Duration;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 
 public class Day05_Challenge {
-    static List<WebElement> allButon;
-    /*
-    ~
-    ~
-    ~
-    ~
-    ~
-    ~ get the names of list from the cart
-    ~ compare the names from displaying list and cart list
-     */
-    public static void main(String[] args) {
 
+
+    static List<String> goruntulemeListesi = new ArrayList<>();
+    static List<String> sepetListesi = new ArrayList<>();
+    static List<WebElement> listNames;
+    static List<WebElement> phonesNames;
+    static List<WebElement> addToCart;
+
+    static WebDriver driver = new ChromeDriver();
+
+    public static void main(String[] args) throws InterruptedException {
 
         WebDriverManager.chromedriver().setup();
-        WebDriver driver =new ChromeDriver();
         driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(15));
-        //Navigate to http://tutorialsninja.com/demo/index.php?route=common/home
-        driver.get("http://tutorialsninja.com/demo/index.php?route=common/home");
-        if (driver.getTitle().equalsIgnoreCase("Your Store")){
-            System.out.println("Tıttle testi Passed");
-        }else System.out.println("Tittle testi Failed");
-        // click on Phones & PDAs
-        driver.findElement(By.xpath("//*[@href='http://tutorialsninja.com/demo/index.php?route=product/category&path=24']")).click();
-        //get the brandName of phones
-        List<WebElement> brandName=driver.findElements(By.xpath("//h4"));
-        for (WebElement w: brandName) {
-            System.out.println(w.getText());
+
+//        ~ Navigate to http://tutorialsninja.com/demo/index.php?route=common/home
+        driver.navigate().to("http://tutorialsninja.com/demo/index.php?route=common/home");
+
+//        ~ click on Phones & PDAs
+        driver.findElement(By.xpath("//*[text()='Phones & PDAs']")).click();
+
+//        ~ get the brandName of phones
+        phonesNames = driver.findElements(By.xpath("//div[@class='caption']"));
+
+        getName(phonesNames, goruntulemeListesi);
+        Thread.sleep(2000);
+
+//        ~ click on add to button for all elements
+        addToCart = driver.findElements(By.xpath("//*[text()='Add to Cart']"));
+
+        allClick(addToCart);
+
+//        ~ click on black total added cart button
+        driver.findElement(By.id("cart-total")).click();
+
+//        ~ get the names of list from the cart
+        listNames = driver.findElements(By.cssSelector("td.text-left>a"));
+
+        getName(listNames, sepetListesi);
+
+//        ~ compare the names from displaying list and cart list
+        compareTwoList(goruntulemeListesi, sepetListesi);
+
+
+//        ~ close driver !
+
+        Thread.sleep(2000);
+        driver.close();
+    }
+
+    public static void compareTwoList(List<String> a, List<String> b) {
+        System.out.println(goruntulemeListesi.equals(sepetListesi) ? "Listeler Aynı" : "Listeler Farklı");
+
+    }
+
+    public static void getName(List<WebElement> a, List<String> b) {
+
+        for (WebElement y : a) {
+            b.add(y.getText());
         }
+        System.out.println(b);
+    }
 
-        //click on add to button for all elements
-       allButon=driver.findElements(By.xpath("//*[text()='Add to Cart"));
+    public static void allClick(List<WebElement> a) throws InterruptedException {
 
-        // click on black total added cart button
-        driver.findElement(By.xpath("//*[@id='cart-total']")).click();
-
-
-
+        for (WebElement k : addToCart) {
+            k.click();
+            Thread.sleep(2000);
+        }
 
     }
 }
