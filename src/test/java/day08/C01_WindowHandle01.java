@@ -9,8 +9,6 @@ import utilities.TestBase;
 import java.util.Set;
 
 public class C01_WindowHandle01 extends TestBase {
-
-
     @Test
     public void test01() throws InterruptedException {
 
