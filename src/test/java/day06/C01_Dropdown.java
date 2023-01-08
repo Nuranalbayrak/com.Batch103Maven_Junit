@@ -35,7 +35,7 @@ public class C01_Dropdown {
        WebElement day= driver.findElement(By.xpath("//select[@id='day']"));
        //2.Select objesi olustur.
         Select select=new Select(year);
-        //3. Select objesini kullanarak 3 farkli sekilde secim yapoabiliriz
+        //3. Select objesini kullanarak 3 farkli sekilde secim yapoabiliriz.
         select.selectByIndex(22);//SECENEK SIRASI 0'dan baslar. 2000 yili 23.sirada
         //ay secimi
         Select select1=new Select(month);
@@ -43,7 +43,6 @@ public class C01_Dropdown {
         //gun secimi
         Select select2=new Select(day);
         select2.selectByVisibleText("10");
-
     }
     @Test
     public void printAllTest(){
@@ -65,7 +64,6 @@ public class C01_Dropdown {
         Select stateDropDown=new Select(state);
         String varSayilanText= stateDropDown.getFirstSelectedOption().getText();
         Assert.assertEquals("Select a State", varSayilanText);
-
     }
 
     /*
@@ -100,6 +98,4 @@ public class C01_Dropdown {
     getOptions(); tum dropdown seçenekleri List<WebElement> olarak return eder
     getFirstSelectedOption(); secili olan ilk secenegi(default) return eder
     */
-
-
 }
