@@ -23,5 +23,10 @@ public class C02_log4j {
     logger.warn("Warning log!");
     logger.debug("Debug log!");
     logger.info("Info log!");
+   //Log4j Nedir?
+        //Loglama yani yazdırma islemi yapmak icin kullanılan bir API dir
+        //Cesitli seviyelerde loglama islemi yapılabilir: uyarı, bilgi, debug, hata mesajları icin kullanilabilir
+        //Javadaki system.out.println e benzer, ama log4 j ile dosyaya detaylı sekilde yazdırma islemi yapabilir.
+        //Su anda projemde log4J2 kullanmaktayım
     }
 }
